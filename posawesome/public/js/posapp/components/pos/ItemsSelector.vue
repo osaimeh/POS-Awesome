@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SearchPrice :items="items"></SearchPrice>
     <v-card
       class="selection mx-auto grey lighten-5"
       style="max-height: 77vh; height: 77vh"
@@ -136,9 +137,12 @@
 
 <script>
 import { evntBus } from '../../bus';
-// import debounce from 'lodash.debounce'
+import SearchPrice from "./SearchPrice.vue";
 import _ from 'lodash';
 export default {
+  components: {
+    SearchPrice,
+  },
   data: () => ({
     pos_profile: '',
     items_view: 'list',

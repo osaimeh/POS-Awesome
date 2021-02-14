@@ -28,6 +28,14 @@
                     <v-list-item-title>Close Shift</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
+                <v-list-item @click="go_invoices">
+                  <v-list-item-icon>
+                    <v-icon>mdi-note-multiple</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Sales Invoices</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
                 <v-divider class="my-0"></v-divider>
                 <v-list-item @click="go_about">
                   <v-list-item-icon>
@@ -68,6 +76,9 @@
           </v-card>
         </v-menu>
       </div>
+      <v-btn text color="grey">
+      <span right>{{ pos_profile.name }}</span>
+      </v-btn>
       <v-btn text color="grey" @click="go_desk">
         <span right>Erpnext</span>
       </v-btn>
@@ -140,6 +151,7 @@ export default {
       snackText: "",
       company: "POS Awesome",
       company_img: "/assets/erpnext/images/erp-icon.svg",
+      pos_profile: '',
     };
   },
   methods: {
@@ -149,6 +161,12 @@ export default {
     go_desk() {
       frappe.set_route("");
       location.reload();
+    },
+    go_invoices() {
+      const url = window.location.origin + '/desk#List/Sales Invoice/List'
+      const win = window.open(url, '_blank');
+      win.focus();
+      
     },
     go_about(){
       const win = window.open('https://github.com/yrestom/POS-Awesome', '_blank');
@@ -172,6 +190,9 @@ export default {
         this.company = data.name;
         this.company_img = data.company_logo ? data.company_logo :this.company_img ;
       });
+      evntBus.$on('register_pos_profile', (data) => {
+        this.pos_profile = data.pos_profile;
+       });
     });
     
   },

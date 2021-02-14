@@ -27,14 +27,16 @@
             <template v-slot:item.amount="{ item }">{{
               formtCurrency(item.qty * item.rate)
             }}</template>
+            <template v-slot:item.actions="{ item }" >
+                <v-icon class="px-0 mx-0" icon color="red" @click.stop="remove_item(item)">
+                  mdi-delete
+                </v-icon>
+            </template>
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length" class="ma-0 pa-0">
                 <v-row class="ma-0 pa-0">
                   <v-col cols="1">
-                    <v-btn icon color="red" @click.stop="remove_item(item)">
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="1">
@@ -300,7 +302,7 @@
                       outlined
                       dense
                       color="indigo"
-                      label="Bacth No"
+                      label="Batch No"
                       @change="set_batch_qty(item, $event)"
                     >
                       <template v-slot:item="data">
@@ -494,6 +496,19 @@
                 block
                 class="pa-0"
                 large
+                color="warning"
+                @click="search_price"
+                dark
+              >
+                Search Price
+              </v-btn
+              >
+            </v-col>
+            <v-col cols="12">
+              <v-btn
+                block
+                class="pa-0"
+                large
                 color="primary"
                 @click="show_payment"
                 dark
@@ -539,6 +554,7 @@ export default {
         { text: 'UOM', value: 'uom', align: 'center' },
         { text: 'Rate', value: 'rate', align: 'center' },
         { text: 'Amount', value: 'amount', align: 'center' },
+        { text: 'Actions', value: "actions", align: 'center', sortable: false},
       ],
     };
   },
@@ -938,6 +954,9 @@ export default {
     },
     open_returns() {
       evntBus.$emit('open_returns', this.pos_profile.company);
+    },
+    search_price() {
+      evntBus.$emit('search_price');
     },
     close_payments() {
       evntBus.$emit('show_payment', 'false');

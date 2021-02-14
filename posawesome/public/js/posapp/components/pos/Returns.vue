@@ -10,7 +10,7 @@
           <span class="headline indigo--text">Select Return Invoice</span>
         </v-card-title>
           <v-container>
-            <v-row class="mb-4">
+            <v-row class="mb-4 ">
               <v-text-field
                 color="indigo"
                 label="Invoice ID"
@@ -19,6 +19,7 @@
                 v-model="invoice_name"
                 dense
                 clearable
+                class="mx-4"
               ></v-text-field>
               <v-btn
                 text
@@ -41,6 +42,9 @@
                     show-select
                     v-model="selected"
                   >
+                  <template v-slot:item.grand_total="{ item }">{{
+                      formtCurrency(item.grand_total)
+                   }}</template>
                   </v-data-table>
                 </template>
               </v-col>
@@ -140,6 +144,10 @@ export default {
         evntBus.$emit("load_return_invoice", data);
         this.invoicesDialog = false;
       }
+    },
+    formtCurrency(value) {
+      value = parseFloat(value);
+      return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
   },
   created: function () {
