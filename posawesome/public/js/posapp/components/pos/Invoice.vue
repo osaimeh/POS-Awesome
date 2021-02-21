@@ -340,55 +340,45 @@
         >
           <v-row no-gutters class="pa-1 pt-2" style="height: 100%">
             <v-col cols="6" no-gutters>
-              <v-row no-gutters class="ma-1 pa-0" style="height: 100%">
+              <v-row
+                no-gutters
+                class="text-subtitle-1 ma-1 pa-2"
+                style="height: 100%"
+              >
                 <v-col cols="12">
-                  <v-text-field
-                    :value="formtCurrency(total_qty)"
-                    label="مجموع الكمية"
-                    outlined
-                    dense
-                    readonly
-                    hide-details
-                  ></v-text-field>
+                  <div>
+                    <p class="pa-0 ma-0">مجموع الكمية</p>
+                    <div style="display: inline">
+                      <span class="text-subtitle-2">
+                        {{ pos_profile.currency }}
+                      </span>
+                    </div>
+                    <span>{{ formtCurrency(total_qty) }}</span>
+                  </div>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field
-                    :value="formtCurrency(total_items_discount_amount)"
-                    label="خصم المواد"
-                    outlined
-                    dense
-                    readonly
-                    hide-details
-                    :prefix="pos_profile.currency"
-                  ></v-text-field>
+                  <div>
+                    <p class="pa-0 ma-0">خصم المواد</p>
+                    <div style="display: inline">
+                      <span class="text-subtitle-2">
+                        {{ pos_profile.currency }}
+                      </span>
+                    </div>
+                    <span>{{
+                      formtCurrency(total_items_discount_amount)
+                    }}</span>
+                  </div>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field
-                    v-model="discount_amount"
-                    label="الخصم الاضافي"
-                    outlined
-                    dense
-                    hide-details
-                    type="number"
-                    :prefix="pos_profile.currency"
-                    :disabled="
-                      !pos_profile.posa_allow_user_to_edit_additional_discount
-                        ? true
-                        : false
-                    "
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    :value="formtCurrency(subtotal)"
-                    label="المجموع"
-                    outlined
-                    dense
-                    readonly
-                    hide-details
-                    class="text--red"
-                    :prefix="pos_profile.currency"
-                  ></v-text-field>
+                  <div class="info--text">
+                    <p class="pa-0 ma-0 text-h6">المجموع</p>
+                    <div style="display: inline">
+                      <span class="text-subtitle-2">
+                        {{ pos_profile.currency }}
+                      </span>
+                    </div>
+                    <span class="text-h5">{{ formtCurrency(subtotal) }}</span>
+                  </div>
                 </v-col>
               </v-row>
             </v-col>
@@ -417,16 +407,6 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="customer_info.loyalty_program"
-                    label="برنامج الولاء"
-                    outlined
-                    dense
-                    disabled
-                    hide-details
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
                     v-model="customer_info.loyalty_points"
                     label="نقاط الولاء"
                     outlined
@@ -434,6 +414,22 @@
                     disabled
                     hide-details
                     type="number"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="discount_amount"
+                    label="الخصم الاضافي"
+                    outlined
+                    dense
+                    hide-details
+                    type="number"
+                    :prefix="pos_profile.currency"
+                    :disabled="
+                      !pos_profile.posa_allow_user_to_edit_additional_discount
+                        ? true
+                        : false
+                    "
                   ></v-text-field>
                 </v-col>
               </v-row>

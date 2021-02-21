@@ -6,8 +6,8 @@
         class="grey--text"
       ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase indigo--text">
-        <span>Avi</span>
-        <span class="font-weight-light">ERP</span>
+        <span>Avvio</span>
+        <span class="font-weight-light">POS</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
