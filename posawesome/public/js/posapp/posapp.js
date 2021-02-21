@@ -8,20 +8,21 @@ frappe.PosApp.posapp = class {
                 this.$parent = $(document);
                 this.page = parent.page;
                 this.make_body();
-                
+
         }
-        make_body() {
+        make_body () {
                 this.$el = this.$parent.find('#body_div');
                 this.vue = new Vue({
-                        vuetify: new Vuetify(),
+                        vuetify: new Vuetify({
+                                rtl: true
+                        }),
                         el: this.$el[0],
                         data: {
                         },
                         render: h => h(Home),
                 });
-                
-        }       
-        setup_header() {
-                
+        }
+        setup_header () {
+
         }
 };

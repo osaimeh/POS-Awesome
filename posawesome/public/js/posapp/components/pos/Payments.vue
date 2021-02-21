@@ -17,7 +17,7 @@
             <v-text-field
               outlined
               color="indigo"
-              label="Paid Amount"
+              label="المبلغ المدفوع"
               background-color="white"
               hide-details
               :value="formtCurrency(total_payments)"
@@ -85,7 +85,7 @@
               dense
               outlined
               color="indigo"
-              label="Redeem Loyalty Points"
+              label="استبدال نقاط الولاء"
               background-color="white"
               hide-details
               v-model="loyalty_amount"
@@ -98,7 +98,7 @@
               dense
               outlined
               color="indigo"
-              label="You can redeem upto"
+              label="يمكن استخدام"
               background-color="white"
               hide-details
               :value="formtCurrency(available_pioints_amount)"
@@ -114,7 +114,7 @@
               dense
               outlined
               color="indigo"
-              label="Net Total"
+              label="صافي المجموع"
               background-color="white"
               hide-details
               :value="formtCurrency(invoice_doc.net_total)"
@@ -127,7 +127,7 @@
               dense
               outlined
               color="indigo"
-              label="Tax and Charges"
+              label="مجموع الضريبة"
               background-color="white"
               hide-details
               :value="formtCurrency(invoice_doc.total_taxes_and_charges)"
@@ -140,7 +140,7 @@
               dense
               outlined
               color="indigo"
-              label="Totoal Amount"
+              label="المبلغ"
               background-color="white"
               hide-details
               :value="formtCurrency(invoice_doc.total)"
@@ -153,7 +153,7 @@
               dense
               outlined
               color="indigo"
-              label="Discount Amount"
+              label="مجموع الخصم"
               background-color="white"
               hide-details
               :value="formtCurrency(invoice_doc.discount_amount)"
@@ -166,7 +166,7 @@
               dense
               outlined
               color="indigo"
-              label="Grand Amount"
+              label="المبلغ الاجمالي"
               background-color="white"
               hide-details
               :value="formtCurrency(invoice_doc.grand_total)"
@@ -202,7 +202,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="invoice_doc.due_date"
-                  label="Due Date"
+                  label="تاريخ الاستحقاق"
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -212,7 +212,7 @@
               <v-date-picker v-model="invoice_doc.due_date" no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="date_menu = false">
-                  Cancel
+                  الغاء
                 </v-btn>
                 <v-btn
                   text
@@ -224,7 +224,7 @@
                     ]
                   "
                 >
-                  OK
+                  موافق
                 </v-btn>
               </v-date-picker>
             </v-menu>
@@ -246,12 +246,12 @@
             color="warning"
             dark
             @click="back_to_invoice"
-            >Back</v-btn
+            >العودة</v-btn
           >
         </v-col>
         <v-col cols="12">
           <v-btn block class="mt-2" large color="primary" dark @click="submit"
-            >Submit Payments</v-btn
+            >تسجيل الدفع</v-btn
           >
         </v-col>
       </v-row>
@@ -279,7 +279,7 @@ export default {
     submit() {
       if (!this.invoice_doc.is_return && this.total_payments < 0) {
         evntBus.$emit('show_mesage', {
-          text: `Payments not correct`,
+          text: `الدفعة غير صحيحة`,
           color: 'error',
         });
         frappe.utils.play_sound('error');
@@ -290,7 +290,7 @@ export default {
         this.total_payments < this.invoice_doc.grand_total
       ) {
         evntBus.$emit('show_mesage', {
-          text: `The amount paid is not complete`,
+          text: `المبلغ المدفوع ناقص`,
           color: 'error',
         });
         frappe.utils.play_sound('error');
@@ -302,7 +302,7 @@ export default {
         this.total_payments == 0
       ) {
         evntBus.$emit('show_mesage', {
-          text: `Please enter the amount paid`,
+          text: `الرجاء ادخال المبلغ المدفوع`,
           color: 'error',
         });
         frappe.utils.play_sound('error');
@@ -403,7 +403,7 @@ export default {
       return (this.invoice_doc.grand_total - this.total_payments).toFixed(2);
     },
     diff_lable() {
-      let lable = this.diff_payment < 0 ? 'Change' : 'To Be Paid';
+      let lable = this.diff_payment < 0 ? 'ارجاع' : 'متبقي للسداد';
       return lable;
     },
     available_pioints_amount() {
@@ -443,7 +443,7 @@ export default {
         this.invoice_doc.redeem_loyalty_points = 0;
         this.invoice_doc.loyalty_points = 0;
         evntBus.$emit('show_mesage', {
-          text: `Loyalty Amount can not be more then ${this.available_pioints_amount}`,
+          text: `مبلغ نقاط الولاء لا يمكن ان يكون اكبر من  ${this.available_pioints_amount}`,
           color: 'error',
         });
       } else {

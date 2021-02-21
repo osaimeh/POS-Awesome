@@ -6,7 +6,7 @@
       </template>-->
       <v-card>
         <v-card-title>
-          <span class="headline indigo--text">Select Hold Invoice</span>
+          <span class="headline indigo--text">اختر الفاتورة</span>
         </v-card-title>
         <v-card-text class="pa-0">
           <v-container>
@@ -30,8 +30,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" dark @click="close_dialog">Close</v-btn>
-          <v-btn color="primary" dark @click="submit_dialog">Select</v-btn>
+          <v-btn color="error" dark @click="close_dialog">اغلاق</v-btn>
+          <v-btn color="primary" dark @click="submit_dialog">تسجيل</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { evntBus } from "../../bus";
+import { evntBus } from '../../bus';
 export default {
   // props: ["draftsDialog"],
   data: () => ({
@@ -49,27 +49,27 @@ export default {
     dialog_data: {},
     headers: [
       {
-        text: "Customer",
-        value: "customer",
-        align: "start",
+        text: 'العميل',
+        value: 'customer',
+        align: 'start',
         sortable: true,
       },
       {
-        text: "Date",
-        align: "start",
+        text: 'التاريخ',
+        align: 'start',
         sortable: true,
-        value: "posting_date",
+        value: 'posting_date',
       },
       {
-        text: "Invoice",
-        value: "name",
-        align: "start",
+        text: 'الفاتورة',
+        value: 'name',
+        align: 'start',
         sortable: true,
       },
       {
-        text: "Amount",
-        value: "grand_total",
-        align: "start",
+        text: 'المبلغ',
+        value: 'grand_total',
+        align: 'start',
         sortable: false,
       },
     ],
@@ -82,13 +82,13 @@ export default {
 
     submit_dialog() {
       if (this.selected.length > 0) {
-        evntBus.$emit("load_invoice", this.selected[0]);
+        evntBus.$emit('load_invoice', this.selected[0]);
         this.draftsDialog = false;
       }
     },
   },
   created: function () {
-    evntBus.$on("open_drafts", (data) => {
+    evntBus.$on('open_drafts', (data) => {
       this.draftsDialog = true;
       this.dialog_data = data;
     });

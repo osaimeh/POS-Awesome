@@ -7,7 +7,7 @@
         auto-select-first
         outlined
         color="indigo"
-        label="Customer"
+        label=" العميل"
         v-model="customer"
         :items="customers"
         item-text="customer_name"

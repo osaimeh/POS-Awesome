@@ -6,7 +6,7 @@
       </template>-->
       <v-card>
         <v-card-title>
-          <span class="headline indigo--text">New Customer</span>
+          <span class="headline indigo--text">اضافة عميل جديد</span>
         </v-card-title>
         <v-card-text class="pa-0">
           <v-container>
@@ -15,7 +15,7 @@
                 <v-text-field
                   dense
                   color="indigo"
-                  label="Customer Name"
+                  label="الإسم"
                   background-color="white"
                   hide-details
                   v-model="customer_name"
@@ -25,7 +25,7 @@
                 <v-text-field
                   dense
                   color="indigo"
-                  label="Tax ID"
+                  label="الرقم الضريبي"
                   background-color="white"
                   hide-details
                   v-model="tax_id"
@@ -35,7 +35,7 @@
                 <v-text-field
                   dense
                   color="indigo"
-                  label="Mobile No"
+                  label="رقم الهاتف"
                   background-color="white"
                   hide-details
                   v-model="mobile_no"
@@ -45,7 +45,7 @@
                 <v-text-field
                   dense
                   color="indigo"
-                  label="Email Id"
+                  label="الايميل"
                   background-color="white"
                   hide-details
                   v-model="email_id"
@@ -56,8 +56,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" dark @click="close_dialog">Close</v-btn>
-          <v-btn color="primary" dark @click="submit_dialog">Submit</v-btn>
+          <v-btn color="error" dark @click="close_dialog">اغلاق</v-btn>
+          <v-btn color="primary" dark @click="submit_dialog">تسجيل</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -65,15 +65,15 @@
 </template>
 
 <script>
-import { evntBus } from "../../bus";
+import { evntBus } from '../../bus';
 export default {
   // props: ["draftsDialog"],
   data: () => ({
     customerDialog: false,
-    customer_name: "",
-    tax_id: "",
-    mobile_no: "",
-    email_id: "",
+    customer_name: '',
+    tax_id: '',
+    mobile_no: '',
+    email_id: '',
   }),
   watch: {},
   methods: {
@@ -85,28 +85,28 @@ export default {
       if (this.customer_name) {
         const vm = this;
         const args = {
-            customer_name: this.customer_name,
-            tax_id: this.tax_id,
-            mobile_no: this.mobile_no,
-            email_id: this.email_id,
+          customer_name: this.customer_name,
+          tax_id: this.tax_id,
+          mobile_no: this.mobile_no,
+          email_id: this.email_id,
         };
         frappe.call({
-          method: "posawesome.posawesome.api.posapp.create_customer",
+          method: 'posawesome.posawesome.api.posapp.create_customer',
           args: args,
           callback: (r) => {
             if (!r.exc && r.message.name) {
-              evntBus.$emit("show_mesage", {
-                text: "Customer contact created successfully.",
-                color: "success",
+              evntBus.$emit('show_mesage', {
+                text: 'تم تسجيل بيانات العميل بنجاح.',
+                color: 'success',
               });
-              args.name = r.message.name
-              frappe.utils.play_sound("submit");
-              evntBus.$emit("add_customer_to_list", args);
-              evntBus.$emit("set_customer", r.message.name);
-              this.customer_name = "";
-              this.tax_id = "";
-              this.mobile_no = "";
-              this.email_id = "";
+              args.name = r.message.name;
+              frappe.utils.play_sound('submit');
+              evntBus.$emit('add_customer_to_list', args);
+              evntBus.$emit('set_customer', r.message.name);
+              this.customer_name = '';
+              this.tax_id = '';
+              this.mobile_no = '';
+              this.email_id = '';
             }
           },
         });
@@ -115,7 +115,7 @@ export default {
     },
   },
   created: function () {
-    evntBus.$on("open_new_customer", () => {
+    evntBus.$on('open_new_customer', () => {
       this.customerDialog = true;
     });
   },

@@ -6,7 +6,7 @@
       </template>-->
       <v-card>
         <v-card-title>
-          <span class="headline indigo--text">Create POS Opening Shift</span>
+          <span class="headline indigo--text">تسجيل وردية جديدة</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -14,7 +14,7 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="companys"
-                  label="Company"
+                  label="الشركة"
                   v-model="company"
                   required
                 ></v-autocomplete>
@@ -22,7 +22,7 @@
               <v-col cols="12">
                 <v-autocomplete
                   :items="pos_profiles"
-                  label="POS Profile"
+                  label=" نموذج نقطة البيع"
                   v-model="pos_profile"
                   required
                 ></v-autocomplete>
@@ -82,13 +82,13 @@ export default {
     payments_methods: [],
     payments_methods_headers: [
       {
-        text: 'Mode of Payment',
+        text: 'طريقة الدفعة',
         align: 'start',
         sortable: false,
         value: 'mode_of_payment',
       },
       {
-        text: 'Opening Amount',
+        text: 'المبلغ الافتتاحي',
         value: 'amount',
         align: 'center',
         sortable: false,

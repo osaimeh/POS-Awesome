@@ -3,14 +3,14 @@
     <v-dialog v-model="Dialog" max-width="500">
       <v-card>
         <v-card-title>
-          <span class="headline indigo--text">Search Item Price</span>
+          <span class="headline indigo--text">البحث عن مادة</span>
         </v-card-title>
         <v-card-text class="mt-2">
           <v-autocomplete
             dense
             clearable
             color="indigo"
-            label="Item"
+            label="المادة"
             v-model="item"
             :items="items"
             item-text="item_name"
@@ -41,19 +41,19 @@
         <v-card-text v-if="item_data" class="mb-0 pb-2">
           <v-row class="mb-0">
             <v-col cols="6">
-              <h4>Item Name</h4>
+              <h4>اسم المادة</h4>
               <h5>{{ item_data.item_name }}</h5>
             </v-col>
             <v-col cols="6">
-              <h4>Item Code</h4>
+              <h4>كود المادة</h4>
               <h5>{{ item_data.item_code }}</h5>
             </v-col>
             <v-col cols="6">
-              <h4>Item Price</h4>
+              <h4>السعر</h4>
               <h5>{{ formtCurrency(item_data.rate) }}</h5>
             </v-col>
             <v-col cols="6">
-              <h4>Available QTY</h4>
+              <h4>الكمية المتوفرة</h4>
               <h5>
                 {{ formtCurrency(item_data.actual_qty) }}
                 {{ item_data.stock_uom }}
@@ -64,7 +64,7 @@
 
         <v-card-actions class="mt-0">
           <v-spacer></v-spacer>
-          <v-btn color="error" dark @click="close_dialog">Close</v-btn>
+          <v-btn color="error" dark @click="close_dialog">اغلاق</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

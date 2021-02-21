@@ -20,7 +20,7 @@
             autofocus
             outlined
             color="indigo"
-            label="Search Items"
+            label="البحث عن المادة"
             hint="Search by item code, serial number, batch no or barcode"
             background-color="white"
             hide-details
@@ -99,7 +99,7 @@
         <v-col cols="12">
           <v-select
             :items="items_group"
-            label="Items Group"
+            label="مجموعات المواد"
             dense
             outlined
             hide-details
@@ -114,12 +114,12 @@
             dense
             rounded
           >
-            <v-btn value="card">Card View</v-btn>
-            <v-btn value="list">List View</v-btn>
+            <v-btn value="card">مصغرات</v-btn>
+            <v-btn value="list">جدول</v-btn>
           </v-btn-toggle>
         </v-col>
         <v-col cols="4" class="mt-1">
-          <v-btn-toggle
+          <!-- <v-btn-toggle
             v-model="favourites_view"
             color="success accent-3"
             group
@@ -127,7 +127,7 @@
             rounded
           >
             <v-btn value="True">Favourites</v-btn>
-          </v-btn-toggle>
+          </v-btn-toggle> -->
         </v-col>
       </v-row>
     </v-card>
@@ -137,7 +137,7 @@
 
 <script>
 import { evntBus } from '../../bus';
-import SearchPrice from "./SearchPrice.vue";
+import SearchPrice from './SearchPrice.vue';
 import _ from 'lodash';
 export default {
   components: {
@@ -155,11 +155,11 @@ export default {
     first_search: '',
     itemsPerPage: 1000,
     items_headers: [
-      { text: 'Name', align: 'start', sortable: true, value: 'item_name' },
-      { text: 'Rate', value: 'rate', align: 'start' },
-      { text: 'Currency', value: 'currency', align: 'start' },
-      { text: 'Available QTY', value: 'actual_qty', align: 'start' },
-      { text: 'UOM', value: 'stock_uom', align: 'start' },
+      { text: 'المادة', align: 'start', sortable: true, value: 'item_name' },
+      { text: 'السعر', value: 'rate', align: 'start' },
+      { text: 'العملة', value: 'currency', align: 'start' },
+      { text: 'الكمية المتوفرة', value: 'actual_qty', align: 'start' },
+      { text: 'الواحدة', value: 'stock_uom', align: 'start' },
     ],
   }),
 
@@ -325,7 +325,7 @@ export default {
     trigger_onscan(sCode) {
       if (this.filtred_items.length == 0) {
         evntBus.$emit('show_mesage', {
-          text: `No Item has this barcode "${sCode}"`,
+          text: `لا توجد مادة لديها الباركود "${sCode}"`,
           color: 'error',
         });
         frappe.utils.play_sound('error');

@@ -27,17 +27,21 @@
             <template v-slot:item.amount="{ item }">{{
               formtCurrency(item.qty * item.rate)
             }}</template>
-            <template v-slot:item.actions="{ item }" >
-                <v-icon class="px-0 mx-0" icon color="red" @click.stop="remove_item(item)">
-                  mdi-delete
-                </v-icon>
+            <template v-slot:item.actions="{ item }">
+              <v-icon
+                class="px-0 mx-0"
+                icon
+                color="red"
+                @click.stop="remove_item(item)"
+              >
+                mdi-delete
+              </v-icon>
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length" class="ma-0 pa-0">
                 <v-row class="ma-0 pa-0">
-                  <v-col cols="1">
-                  </v-col>
+                  <v-col cols="1"> </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="1">
                     <v-btn
@@ -64,7 +68,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Item Code"
+                      label="كود المادة"
                       background-color="white"
                       hide-details
                       v-model="item.item_code"
@@ -76,7 +80,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="QTY"
+                      label="الكمية"
                       background-color="white"
                       hide-details
                       v-model.number="item.qty"
@@ -88,7 +92,7 @@
                     <v-select
                       dense
                       background-color="white"
-                      label="UOM"
+                      label="الواحدة"
                       v-model="item.uom"
                       :items="item.item_uoms"
                       outlined
@@ -105,7 +109,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Rate"
+                      label="السعر"
                       background-color="white"
                       hide-details
                       v-model.number="item.rate"
@@ -126,7 +130,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Discount Percentage"
+                      label="نسبة الخصم"
                       background-color="white"
                       hide-details
                       v-model.number="item.discount_percentage"
@@ -146,7 +150,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Discount Amount"
+                      label="مبلغ الخصم"
                       background-color="white"
                       hide-details
                       v-model.number="item.discount_amount"
@@ -167,7 +171,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Price list Rate"
+                      label="سعر القائمة"
                       background-color="white"
                       hide-details
                       v-model="item.price_list_rate"
@@ -181,7 +185,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Available QTY"
+                      label="الكمية المتوفرة"
                       background-color="white"
                       hide-details
                       v-model="item.actual_qty"
@@ -194,7 +198,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Group"
+                      label="المجموعة"
                       background-color="white"
                       hide-details
                       v-model="item.item_group"
@@ -206,7 +210,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Stock QTY"
+                      label="الكمية حسب واحدة المخزون"
                       background-color="white"
                       hide-details
                       v-model="item.stock_qty"
@@ -219,7 +223,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Stock UOM"
+                      label="واحدة المخزون"
                       background-color="white"
                       hide-details
                       v-model="item.stock_uom"
@@ -234,7 +238,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Serial No QTY"
+                      label="كمية الرقم التسلسلي"
                       background-color="white"
                       hide-details
                       v-model="item.serial_no_selected_count"
@@ -255,7 +259,7 @@
                       chips
                       color="indigo"
                       small-chips
-                      label="Serial No"
+                      label="الرقم التسلسلي"
                       multiple
                       @change="set_serial_no(item)"
                     ></v-autocomplete>
@@ -268,7 +272,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Batch No Available QTY"
+                      label="الكمية المتوفرة من الدفعة"
                       background-color="white"
                       hide-details
                       v-model="item.actual_batch_qty"
@@ -284,7 +288,7 @@
                       dense
                       outlined
                       color="indigo"
-                      label="Batch No Expiry Date"
+                      label="تاريخ انتهاء الدفعة"
                       background-color="white"
                       hide-details
                       v-model="item.batch_no_expiry_date"
@@ -302,7 +306,7 @@
                       outlined
                       dense
                       color="indigo"
-                      label="Batch No"
+                      label="رقم الدفعة"
                       @change="set_batch_qty(item, $event)"
                     >
                       <template v-slot:item="data">
@@ -340,7 +344,7 @@
                 <v-col cols="12">
                   <v-text-field
                     :value="formtCurrency(total_qty)"
-                    label="Total Qty"
+                    label="مجموع الكمية"
                     outlined
                     dense
                     readonly
@@ -350,7 +354,7 @@
                 <v-col cols="12">
                   <v-text-field
                     :value="formtCurrency(total_items_discount_amount)"
-                    label="Items Discounts"
+                    label="خصم المواد"
                     outlined
                     dense
                     readonly
@@ -361,7 +365,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="discount_amount"
-                    label="ِAdditional Discount"
+                    label="الخصم الاضافي"
                     outlined
                     dense
                     hide-details
@@ -377,7 +381,7 @@
                 <v-col cols="12">
                   <v-text-field
                     :value="formtCurrency(subtotal)"
-                    label="Total"
+                    label="المجموع"
                     outlined
                     dense
                     readonly
@@ -393,7 +397,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="customer_info.email_id"
-                    label="Email"
+                    label="الايميل"
                     outlined
                     dense
                     @change="set_customer_info('email_id', $event)"
@@ -403,7 +407,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="customer_info.mobile_no"
-                    label="ِPhone Number"
+                    label="ِرقم الهاتف"
                     outlined
                     dense
                     hide-details
@@ -414,7 +418,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="customer_info.loyalty_program"
-                    label="Loyalty Program"
+                    label="برنامج الولاء"
                     outlined
                     dense
                     disabled
@@ -424,7 +428,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="customer_info.loyalty_points"
-                    label="Loyalty Points"
+                    label="نقاط الولاء"
                     outlined
                     dense
                     disabled
@@ -452,7 +456,7 @@
                 color="warning"
                 dark
                 @click="get_draft_invoices"
-                >Get Hold</v-btn
+                >المعلقة</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -464,7 +468,7 @@
                 color="info"
                 dark
                 @click="open_returns"
-                >Return</v-btn
+                >اعادة</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -475,7 +479,7 @@
                 color="error"
                 dark
                 @click="cancel_invoice"
-                >Cancel</v-btn
+                >الغاء</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -486,7 +490,7 @@
                 color="success"
                 dark
                 @click="new_invoice"
-                >New</v-btn
+                >جديد</v-btn
               >
             </v-col>
           </v-row>
@@ -500,9 +504,8 @@
                 @click="search_price"
                 dark
               >
-                Search Price
-              </v-btn
-              >
+                بحث عن سعر
+              </v-btn>
             </v-col>
             <v-col cols="12">
               <v-btn
@@ -512,7 +515,7 @@
                 color="primary"
                 @click="show_payment"
                 dark
-                >PAY</v-btn
+                >الدفع</v-btn
               >
             </v-col>
           </v-row>
@@ -545,16 +548,16 @@ export default {
       singleExpand: true,
       items_headers: [
         {
-          text: 'Name',
+          text: 'المادة',
           align: 'start',
           sortable: true,
           value: 'item_name',
         },
-        { text: 'QTY', value: 'qty', align: 'center' },
-        { text: 'UOM', value: 'uom', align: 'center' },
-        { text: 'Rate', value: 'rate', align: 'center' },
-        { text: 'Amount', value: 'amount', align: 'center' },
-        { text: 'Actions', value: "actions", align: 'center', sortable: false},
+        { text: 'الكمية', value: 'qty', align: 'center' },
+        { text: 'الواحدة', value: 'uom', align: 'center' },
+        { text: 'السعر', value: 'rate', align: 'center' },
+        { text: 'المبلغ', value: 'amount', align: 'center' },
+        { text: 'إجراءات', value: 'actions', align: 'center', sortable: false },
       ],
     };
   },
@@ -677,7 +680,7 @@ export default {
           callback: function (r) {
             if (r.message) {
               evntBus.$emit('show_mesage', {
-                text: r.message,
+                text: 'تم حذف الفاتورة',
                 color: 'warning',
               });
             }
@@ -829,14 +832,14 @@ export default {
     show_payment() {
       if (!this.customer) {
         evntBus.$emit('show_mesage', {
-          text: `There is no Customer !`,
+          text: `لا يوجد عميل !`,
           color: 'error',
         });
         return;
       }
       if (!this.items.length) {
         evntBus.$emit('show_mesage', {
-          text: `There is no Items !`,
+          text: `لا يوجد مواد !`,
           color: 'error',
         });
         return;
@@ -858,7 +861,7 @@ export default {
         ) {
           if (item.is_stock_item && item.stock_qty > item.actual_qty) {
             evntBus.$emit('show_mesage', {
-              text: `The existing quantity of item ${item.item_name} is not enough`,
+              text: `الكمية المتوفرة من المادة${item.item_name} غير كافية`,
               color: 'error',
             });
             value = false;
@@ -870,7 +873,7 @@ export default {
             item.stock_qty != item.serial_no_selected.length
           ) {
             evntBus.$emit('show_mesage', {
-              text: `Selcted serial numbers of item ${item.item_name} is incorrect`,
+              text: `الرقم التسلسلي المحدد للمادة ${item.item_name} غير صحيح`,
               color: 'error',
             });
             value = false;
@@ -879,7 +882,7 @@ export default {
         if (item.has_batch_no) {
           if (item.stock_qty > item.actual_batch_qty) {
             evntBus.$emit('show_mesage', {
-              text: `The existing batch quantity of item ${item.item_name} is not enough`,
+              text: `الكمية المتوفرة من الدفعة للمادة ${item.item_name} غير كافية`,
               color: 'error',
             });
             value = false;
@@ -889,7 +892,7 @@ export default {
           const clac_percentage = (this.discount_amount / this.subtotal) * 100;
           if (clac_percentage > this.pos_profile.posa_max_discount_allowed) {
             evntBus.$emit('show_mesage', {
-              text: `The discount should not be higher than ${this.pos_profile.posa_max_discount_allowed}%`,
+              text: `الخصم لا يجب ان يكون اكبر من ${this.pos_profile.posa_max_discount_allowed}%`,
               color: 'error',
             });
             value = false;
@@ -898,7 +901,7 @@ export default {
         if (this.invoice_doc.is_return) {
           if (this.subtotal >= 0) {
             evntBus.$emit('show_mesage', {
-              text: `Return Invoice Total Not Correct`,
+              text: `مجموع فاتورة الاعادة غير صحيح`,
               color: 'error',
             });
             value = false;
@@ -906,7 +909,7 @@ export default {
           }
           if (this.subtotal * -1 > this.return_doc.total) {
             evntBus.$emit('show_mesage', {
-              text: `Return Invoice Total should not be higher than ${this.return_doc.total}`,
+              text: `مجموع فاتورة الاعادة لايجب ان يكون اكبر من ${this.return_doc.total}`,
               color: 'error',
             });
             value = false;
@@ -919,14 +922,14 @@ export default {
 
             if (!return_item) {
               evntBus.$emit('show_mesage', {
-                text: `The item ${item.item_name} cannot be returned because it is not in the invoice ${this.return_doc.name}`,
+                text: `المادة ${item.item_name} لا يمكن اعادتها لانها غير موجودة في الفاتورة ${this.return_doc.name}`,
                 color: 'error',
               });
               value = false;
               return value;
             } else if (item.qty * -1 > return_item.qty || item.qty >= 0) {
               evntBus.$emit('show_mesage', {
-                text: `The QTY of the item ${item.item_name} cannot be greater than ${return_item.qty}`,
+                text: `كمية المادة ${item.item_name} لايمكن ان تكون اكبر من ${return_item.qty}`,
                 color: 'error',
               });
               value = false;
@@ -1174,7 +1177,7 @@ export default {
       item.serial_no_selected_count = item.serial_no_selected.length;
       if (item.serial_no_selected_count != item.stock_qty) {
         evntBus.$emit('show_mesage', {
-          text: `Selected Serial No QTY is ${item.serial_no_selected_count} it should be ${item.stock_qty}`,
+          text: `عدد الارثام التسلسلية المحدد ${item.serial_no_selected_count} يحب ان يكون ${item.stock_qty}`,
           color: 'warning',
         });
       }
@@ -1207,7 +1210,7 @@ export default {
           if (!r.exc) {
             vm.customer_info[field] = value;
             evntBus.$emit('show_mesage', {
-              text: 'Customer contact updated successfully.',
+              text: 'تم تحديث بيانات العميل بنجاح.',
               color: 'success',
             });
             frappe.utils.play_sound('submit');
