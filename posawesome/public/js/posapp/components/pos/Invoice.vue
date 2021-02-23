@@ -377,7 +377,7 @@
                         {{ pos_profile.currency }}
                       </span>
                     </div>
-                    <span class="text-h5">{{ formtCurrency(subtotal) }}</span>
+                    <span class="text-h4">{{ formtCurrency(subtotal) }}</span>
                   </div>
                 </v-col>
               </v-row>
