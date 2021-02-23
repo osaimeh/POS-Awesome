@@ -389,6 +389,12 @@ export default {
       value = parseFloat(value);
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
+    shortPay(e) {
+      if (e.key === 'x' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.submit();
+      }
+    },
   },
 
   computed: {
@@ -418,6 +424,7 @@ export default {
   },
 
   created: function () {
+    document.addEventListener('keydown', this.shortPay.bind(this));
     this.$nextTick(function () {
       evntBus.$on('send_invoice_doc_payment', (invoice_doc) => {
         this.invoice_doc = invoice_doc;
@@ -434,6 +441,10 @@ export default {
         this.pos_profile = data.pos_profile;
       });
     });
+  },
+
+  destroyed() {
+    document.removeEventListener('keydown', this.shortPay);
   },
 
   watch: {

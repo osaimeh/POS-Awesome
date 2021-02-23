@@ -419,6 +419,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="discount_amount"
+                    ref="discount"
                     label="الخصم الاضافي"
                     outlined
                     dense
@@ -1218,6 +1219,31 @@ export default {
       value = parseFloat(value);
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
+    shortOpenPayment(e) {
+      if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.show_payment();
+      }
+    },
+    shortDeleteFirstItem(e) {
+      if (e.key === 'd' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.remove_item(this.items[0]);
+      }
+    },
+    shortOpenFirstItem(e) {
+      if (e.key === 'a' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.expanded = [];
+        this.expanded.push(this.items[0]);
+      }
+    },
+    shortSelectDiscount(e) {
+      if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.$refs.discount.focus();
+      }
+    },
   },
   created() {
     this.$nextTick(function () {});
@@ -1244,8 +1270,19 @@ export default {
       this.new_invoice(data.invoice_doc);
       this.return_doc = data.return_doc;
     });
+    document.addEventListener('keydown', this.shortOpenPayment.bind(this));
+    document.addEventListener('keydown', this.shortDeleteFirstItem.bind(this));
+    document.addEventListener('keydown', this.shortOpenFirstItem.bind(this));
+    document.addEventListener('keydown', this.shortSelectDiscount.bind(this));
   },
-  mounted: function () {},
+
+  destroyed() {
+    document.removeEventListener('keydown', this.shortOpenPayment);
+    document.removeEventListener('keydown', this.shortDeleteFirstItem);
+    document.removeEventListener('keydown', this.shortOpenFirstItem);
+    document.removeEventListener('keydown', this.shortSelectDiscount);
+  },
+
   watch: {
     customer() {
       this.close_payments();
