@@ -1244,6 +1244,12 @@ export default {
         this.$refs.discount.focus();
       }
     },
+    shortPriceSearch(e) {
+      if (e.key === 'c' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        this.search_price();
+      }
+    },
   },
   created() {
     this.$nextTick(function () {});
@@ -1274,6 +1280,7 @@ export default {
     document.addEventListener('keydown', this.shortDeleteFirstItem.bind(this));
     document.addEventListener('keydown', this.shortOpenFirstItem.bind(this));
     document.addEventListener('keydown', this.shortSelectDiscount.bind(this));
+    document.addEventListener('keydown', this.shortPriceSearch.bind(this));
   },
 
   destroyed() {
@@ -1281,6 +1288,7 @@ export default {
     document.removeEventListener('keydown', this.shortDeleteFirstItem);
     document.removeEventListener('keydown', this.shortOpenFirstItem);
     document.removeEventListener('keydown', this.shortSelectDiscount);
+    document.removeEventListener('keydown', this.shortPriceSearch);
   },
 
   watch: {
