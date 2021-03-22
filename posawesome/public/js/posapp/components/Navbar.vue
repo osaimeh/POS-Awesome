@@ -38,15 +38,6 @@
                     <v-list-item-title>فواتير المبيعات</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-divider class="my-0"></v-divider>
-                <v-list-item @click="go_about">
-                  <v-list-item-icon>
-                    <v-icon>mdi-information-outline</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>حول</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
               </v-list-item-group>
             </v-list>
           </v-card>
@@ -168,13 +159,6 @@ export default {
     go_invoices() {
       const url = window.location.origin + '/desk#List/Sales Invoice/List';
       const win = window.open(url, '_blank');
-      win.focus();
-    },
-    go_about() {
-      const win = window.open(
-        'https://github.com/yrestom/POS-Awesome',
-        '_blank'
-      );
       win.focus();
     },
     close_shift_dialog() {
