@@ -282,7 +282,6 @@ export default {
       this.submit();
     },
     submit() {
-      this.without_print = false;
       if (!this.invoice_doc.is_return && this.total_payments < 0) {
         evntBus.$emit('show_mesage', {
           text: `الدفعة غير صحيحة`,
