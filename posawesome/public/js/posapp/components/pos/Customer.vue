@@ -45,6 +45,14 @@
             </v-list-item-content>
           </template>
         </template>
+        <v-list-tile
+          class="ml-4 indigo--text"
+          slot="append-item"
+          @click="new_customer"
+        >
+          Add new Customer
+        </v-list-tile>
+
         <template v-slot:append-outer>
           <v-slide-x-reverse-transition mode="out-in">
             <v-icon @click="new_customer">mdi-plus</v-icon>
