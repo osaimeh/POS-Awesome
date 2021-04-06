@@ -27,6 +27,7 @@
             v-model="debounce_search"
             @keydown.esc="esc_event"
             @keydown.enter="enter_event"
+            ref="barcode"
           ></v-text-field>
         </v-col>
         <v-col cols="12" class="pt-0 mt-0">
@@ -339,6 +340,12 @@ export default {
       value = parseFloat(value);
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
+    shortFocusBarcode(e) {
+      if (e.key === 'F3') {
+        e.preventDefault();
+        this.$refs.barcode.focus();
+      }
+    },
   },
 
   computed: {
@@ -400,6 +407,10 @@ export default {
     evntBus.$on('update_cur_items_details', () => {
       this.update_cur_items_details();
     });
+    document.addEventListener('keydown', this.shortFocusBarcode.bind(this));
+  },
+  destroyed() {
+    document.removeEventListener('keydown', this.shortFocusBarcode);
   },
 
   mounted() {
