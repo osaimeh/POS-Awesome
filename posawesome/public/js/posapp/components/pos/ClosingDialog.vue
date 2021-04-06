@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="closingDialog" max-width="900px">
+    <v-dialog v-model="closingDialog" max-width="400px">
       <v-card>
         <v-card-title>
           <span class="headline indigo--text">اغلاق الوردية</span>
@@ -77,28 +77,10 @@ export default {
         sortable: true,
       },
       {
-        text: 'المبلغ الإفتتاحي',
-        align: 'end',
-        sortable: true,
-        value: 'opening_amount',
-      },
-      {
         text: 'المبلغ الموجود',
         value: 'closing_amount',
         align: 'end',
         sortable: true,
-      },
-      {
-        text: 'مبلغ الاغلاق',
-        value: 'expected_amount',
-        align: 'end',
-        sortable: false,
-      },
-      {
-        text: 'الفارق',
-        value: 'difference',
-        align: 'end',
-        sortable: false,
       },
     ],
     max25chars: (v) => v.length <= 20 || 'Input too long!', // TODO : should validate as number
