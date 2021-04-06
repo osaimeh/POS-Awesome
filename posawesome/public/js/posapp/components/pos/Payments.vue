@@ -237,7 +237,7 @@
       style="max-height: 11vh; height: 11vh"
       class="cards mb-0 mt-3 py-0"
     >
-      <v-row align="start" no-gutters>
+      <v-row align="start">
         <v-col cols="12">
           <v-btn
             block
@@ -249,9 +249,12 @@
             >العودة</v-btn
           >
         </v-col>
-        <v-col cols="12">
-          <v-btn block class="mt-2" large color="primary" dark @click="submit"
-            >تسجيل الدفع</v-btn
+        <v-col cols="6">
+          <v-btn block color="primary" dark @click="submit">تسجيل الدفع</v-btn>
+        </v-col>
+        <v-col cols="6">
+          <v-btn block color="primary" dark @click="submit_without_print"
+            >الدفع بدون طباعة</v-btn
           >
         </v-col>
       </v-row>
