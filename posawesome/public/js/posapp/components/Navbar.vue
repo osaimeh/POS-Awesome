@@ -77,6 +77,9 @@
       <v-btn text color="grey" @click="go_desk">
         <span right>الرئيسية</span>
       </v-btn>
+      <v-btn text color="grey" @click="logOut">
+        <span right>الخروج</span>
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -168,6 +171,20 @@ export default {
       this.snack = true;
       this.snackColor = data.color;
       this.snackText = data.text;
+    },
+    logOut() {
+      var me = this;
+      me.logged_out = true;
+      return frappe.call({
+        method: 'logout',
+        callback: function (r) {
+          if (r.exc) {
+            return;
+          }
+          frappe.set_route('/login');
+          location.reload();
+        },
+      });
     },
   },
   created: function () {
