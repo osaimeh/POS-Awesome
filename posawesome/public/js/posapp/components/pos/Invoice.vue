@@ -409,13 +409,19 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="customer_info.loyalty_points"
-                    label="نقاط الولاء"
+                    v-model="discount_percentage"
+                    label="نسبة الخصم"
                     outlined
                     dense
-                    disabled
                     hide-details
                     type="number"
+                    @change="update_discount_amount"
+                    :prefix="'%'"
+                    :disabled="
+                      !pos_profile.posa_allow_user_to_edit_additional_discount
+                        ? true
+                        : false
+                    "
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
@@ -427,6 +433,7 @@
                     dense
                     hide-details
                     type="number"
+                    @change="update_discount_percentage"
                     :prefix="pos_profile.currency"
                     :disabled="
                       !pos_profile.posa_allow_user_to_edit_additional_discount
@@ -539,6 +546,7 @@ export default {
       customer: '',
       customer_info: '',
       discount_amount: 0,
+      discount_percentage: 0,
       total_tax: 0,
       total: 0,
       items: [],
@@ -571,6 +579,13 @@ export default {
         qty += item.qty;
       });
       return flt(qty).toFixed(2);
+    },
+    Total() {
+      let sum = 0;
+      this.items.forEach((item) => {
+        sum += item.qty * item.rate;
+      });
+      return flt(sum).toFixed(2);
     },
     subtotal() {
       this.close_payments();
@@ -851,6 +866,12 @@ export default {
       invoice_doc.customer_info = this.customer_info;
       evntBus.$emit('send_invoice_doc_payment', invoice_doc);
     },
+    update_discount_percentage() {
+      this.discount_percentage = (this.discount_amount / this.Total) * 100;
+    },
+    update_discount_amount() {
+      this.discount_amount = (this.discount_percentage * this.Total) / 100;
+    },
     validate() {
       let value = true;
       this.items.forEach((item) => {
@@ -888,7 +909,7 @@ export default {
           }
         }
         if (this.pos_profile.posa_allow_user_to_edit_additional_discount) {
-          const clac_percentage = (this.discount_amount / this.subtotal) * 100;
+          const clac_percentage = (this.discount_amount / this.Total) * 100;
           if (clac_percentage > this.pos_profile.posa_max_discount_allowed) {
             evntBus.$emit('show_mesage', {
               text: `الخصم لا يجب ان يكون اكبر من ${this.pos_profile.posa_max_discount_allowed}%`,
