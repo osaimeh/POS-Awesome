@@ -15,6 +15,7 @@
         background-color="white"
         no-data-text="Customer not found"
         hide-details
+        ref="customer"
         :filter="customFilter"
         :disabled="readonly"
       >
@@ -109,6 +110,12 @@ export default {
         textFifth.indexOf(searchText) > -1
       );
     },
+    shortSelecCustomer(e) {
+      if (e.key === 'F4') {
+        e.preventDefault();
+        this.$refs.customer.focus();
+      }
+    },
   },
 
   computed: {},
@@ -129,6 +136,11 @@ export default {
         this.readonly = value;
       });
     });
+    document.addEventListener('keydown', this.shortSelecCustomer.bind(this));
+  },
+
+  destroyed() {
+    document.removeEventListener('keydown', this.shortSelecCustomer);
   },
 
   watch: {
