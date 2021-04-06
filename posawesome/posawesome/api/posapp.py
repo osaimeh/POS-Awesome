@@ -162,6 +162,9 @@ def get_items(pos_profile):
             item_price = item_prices.get(item_code) or {}
             item_barcode = frappe.get_all("Item Barcode", filters={
                                           "parent": item_code}, fields=["barcode", "posa_uom"])
+            barcode = ""
+            if len(item_barcode) > 0:
+                barcode = item_barcode[0].barcode
 
             if pos_profile.get("posa_display_items_in_stock"):
                 item_stock_qty = get_stock_availability(
@@ -175,6 +178,7 @@ def get_items(pos_profile):
                     'rate': item_price.get('price_list_rate') or 0,
                     'currency': item_price.get('currency') or pos_profile.get("currency"),
                     'item_barcode': item_barcode or [],
+                    'barcode': barcode,
                     'actual_qty': 0,
                 })
                 result.append(row)
@@ -496,7 +500,7 @@ def search_invoices_for_return(invoice_name, company):
     invoices_list = frappe.get_list(
         "Sales Invoice",
         filters={
-            "name": ["like","%"+invoice_name+"%"],
+            "name": ["like", "%"+invoice_name+"%"],
             "company": company,
             "docstatus": 1
         },

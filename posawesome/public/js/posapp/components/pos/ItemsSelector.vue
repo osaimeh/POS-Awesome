@@ -159,7 +159,7 @@ export default {
       { text: 'السعر', value: 'rate', align: 'start' },
       { text: 'العملة', value: 'currency', align: 'start' },
       { text: 'الكمية المتوفرة', value: 'actual_qty', align: 'start' },
-      { text: 'الواحدة', value: 'stock_uom', align: 'start' },
+      { text: 'الباركود', value: 'barcode', align: 'start' },
     ],
   }),
 
@@ -377,6 +377,7 @@ export default {
           }
         }
       }
+      console.info(filtred_list.slice(0, 10));
       return filtred_list.slice(0, 50);
     },
     debounce_search: {
