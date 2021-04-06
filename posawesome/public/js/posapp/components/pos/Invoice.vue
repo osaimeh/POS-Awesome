@@ -86,6 +86,7 @@
                       v-model.number="item.qty"
                       type="number"
                       @change="calc_sotck_gty(item, $event)"
+                      :ref="'qty' + item.item_id"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4">
@@ -1232,10 +1233,15 @@ export default {
       }
     },
     shortOpenFirstItem(e) {
-      if (e.key === 'a' && (e.ctrlKey || e.metaKey)) {
+      if (e.key === 'F1') {
         e.preventDefault();
         this.expanded = [];
-        this.expanded.push(this.items[0]);
+        if (this.items.length) {
+          const item = this.items[0];
+          this.expanded.push(item);
+          const refID = 'qty' + item.item_id;
+          this.$refs[refID].focus();
+        }
       }
     },
     shortSelectDiscount(e) {
