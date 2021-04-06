@@ -269,6 +269,7 @@ export default {
     loyalty_amount: 0,
     is_credit_sale: 0,
     date_menu: false,
+    without_print: false,
   }),
 
   methods: {
@@ -276,7 +277,12 @@ export default {
       evntBus.$emit('show_payment', 'false');
       evntBus.$emit('set_customer_readonly', false);
     },
+    submit_without_print() {
+      this.without_print = true;
+      this.submit();
+    },
     submit() {
+      this.without_print = false;
       if (!this.invoice_doc.is_return && this.total_payments < 0) {
         evntBus.$emit('show_mesage', {
           text: `الدفعة غير صحيحة`,
@@ -322,12 +328,17 @@ export default {
         async: true,
         callback: function (r) {
           if (r.message) {
-            vm.load_print_page();
+            if (!vm.without_print) {
+              vm.load_print_page();
+            }
+            vm.without_print = false;
             evntBus.$emit('show_mesage', {
               text: `Invoice ${r.message.name} is Submited`,
               color: 'success',
             });
             frappe.utils.play_sound('submit');
+          } else {
+            vm.without_print = false;
           }
         },
       });
@@ -395,6 +406,12 @@ export default {
         this.submit();
       }
     },
+    shortPayWithoutPrint(e) {
+      if (e.key === 'F8') {
+        e.preventDefault();
+        this.submit_without_print();
+      }
+    },
   },
 
   computed: {
@@ -425,6 +442,7 @@ export default {
 
   created: function () {
     document.addEventListener('keydown', this.shortPay.bind(this));
+    document.addEventListener('keydown', this.shortPayWithoutPrint.bind(this));
     this.$nextTick(function () {
       evntBus.$on('send_invoice_doc_payment', (invoice_doc) => {
         this.invoice_doc = invoice_doc;
@@ -445,6 +463,7 @@ export default {
 
   destroyed() {
     document.removeEventListener('keydown', this.shortPay);
+    document.removeEventListener('keydown', this.shortPayWithoutPrint);
   },
 
   watch: {
