@@ -138,6 +138,7 @@
                       type="number"
                       @change="calc_prices(item, $event)"
                       id="discount_percentage"
+                      :ref="'perc' + item.item_id"
                       :disabled="
                         item.pricing_rules ||
                         !pos_profile.posa_allow_user_to_edit_item_discount
@@ -1232,7 +1233,7 @@ export default {
         this.remove_item(this.items[0]);
       }
     },
-    shortOpenFirstItem(e) {
+    shortFocusQTY(e) {
       if (e.key === 'F1') {
         e.preventDefault();
         this.expanded = [];
@@ -1240,6 +1241,18 @@ export default {
           const item = this.items[0];
           this.expanded.push(item);
           const refID = 'qty' + item.item_id;
+          this.$refs[refID].focus();
+        }
+      }
+    },
+    shortFocusPerc(e) {
+      if (e.key === 'F2') {
+        e.preventDefault();
+        this.expanded = [];
+        if (this.items.length) {
+          const item = this.items[0];
+          this.expanded.push(item);
+          const refID = 'perc' + item.item_id;
           this.$refs[refID].focus();
         }
       }
@@ -1284,7 +1297,8 @@ export default {
     });
     document.addEventListener('keydown', this.shortOpenPayment.bind(this));
     document.addEventListener('keydown', this.shortDeleteFirstItem.bind(this));
-    document.addEventListener('keydown', this.shortOpenFirstItem.bind(this));
+    document.addEventListener('keydown', this.shortFocusQTY.bind(this));
+    document.addEventListener('keydown', this.shortFocusPerc.bind(this));
     document.addEventListener('keydown', this.shortSelectDiscount.bind(this));
     document.addEventListener('keydown', this.shortPriceSearch.bind(this));
   },
@@ -1292,7 +1306,8 @@ export default {
   destroyed() {
     document.removeEventListener('keydown', this.shortOpenPayment);
     document.removeEventListener('keydown', this.shortDeleteFirstItem);
-    document.removeEventListener('keydown', this.shortOpenFirstItem);
+    document.removeEventListener('keydown', this.shortFocusQTY);
+    document.removeEventListener('keydown', this.shortFocusPerc);
     document.removeEventListener('keydown', this.shortSelectDiscount);
     document.removeEventListener('keydown', this.shortPriceSearch);
   },
