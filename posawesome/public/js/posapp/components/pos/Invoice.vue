@@ -1222,7 +1222,7 @@ export default {
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
     shortOpenPayment(e) {
-      if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+      if (e.key === 'F6') {
         e.preventDefault();
         this.show_payment();
       }
