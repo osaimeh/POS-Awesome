@@ -410,6 +410,7 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="discount_percentage"
+                    ref="discount_percentage"
                     label="نسبة الخصم"
                     outlined
                     dense
@@ -1278,6 +1279,12 @@ export default {
         }
       }
     },
+    shortSelectDiscountPercent(e) {
+      if (e.key === 'F5') {
+        e.preventDefault();
+        this.$refs.discount_percentage.focus();
+      }
+    },
     shortSelectDiscount(e) {
       if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
@@ -1322,6 +1329,10 @@ export default {
     document.addEventListener('keydown', this.shortFocusPerc.bind(this));
     document.addEventListener('keydown', this.shortSelectDiscount.bind(this));
     document.addEventListener('keydown', this.shortPriceSearch.bind(this));
+    document.addEventListener(
+      'keydown',
+      this.shortSelectDiscountPercent.bind(this)
+    );
   },
 
   destroyed() {
@@ -1331,6 +1342,7 @@ export default {
     document.removeEventListener('keydown', this.shortFocusPerc);
     document.removeEventListener('keydown', this.shortSelectDiscount);
     document.removeEventListener('keydown', this.shortPriceSearch);
+    document.removeEventListener('keydown', this.shortSelectDiscountPercent);
   },
 
   watch: {
