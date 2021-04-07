@@ -472,8 +472,9 @@
                 class="pa-0"
                 :class="{ 'disable-events': !pos_profile.posa_allow_return }"
                 large
-                color="info"
+                :color="get_return_color"
                 dark
+                :depressed="is_return"
                 @click="open_returns"
                 >اعادة</v-btn
               >
@@ -544,6 +545,7 @@ export default {
       stock_settings: '',
       invoice_doc: '',
       return_doc: '',
+      is_return: false,
       customer: '',
       customer_info: '',
       discount_amount: 0,
@@ -604,6 +606,9 @@ export default {
       });
       return flt(sum).toFixed(2);
     },
+    get_return_color() {
+      return this.is_return ? 'error' : 'info';
+    },
   },
   methods: {
     remove_item(item) {
@@ -615,7 +620,11 @@ export default {
       }
     },
     add_one(item) {
-      item.qty++;
+      if (!this.is_return) {
+        item.qty++;
+      } else {
+        item.qty--;
+      }
       if (item.qty == 0) {
         this.remove_item(item);
       }
@@ -639,27 +648,43 @@ export default {
       );
       if (index === -1) {
         const new_item = this.get_new_item(item);
+        if (this.is_return) {
+          new_item.qty = -new_item.qty;
+        }
         this.items.unshift(new_item);
         this.update_item_detail(new_item);
       } else {
         const cur_item = this.items[index];
         this.update_items_details([cur_item]);
         if (!cur_item.has_batch_no) {
-          cur_item.qty += item.qty;
+          if (this.is_return) {
+            cur_item.qty -= item.qty;
+          } else {
+            cur_item.qty += item.qty;
+          }
           this.calc_sotck_gty(cur_item, cur_item.qty);
         } else {
           if (
             cur_item.stock_qty < cur_item.actual_batch_qty ||
             !cur_item.batch_no
           ) {
-            cur_item.qty += item.qty;
+            if (this.is_return) {
+              cur_item.qty -= item.qty;
+            } else {
+              cur_item.qty += item.qty;
+            }
             this.calc_sotck_gty(cur_item, cur_item.qty);
           } else {
             const new_item = this.get_new_item(cur_item);
             new_item.batch_no = '';
             new_item.batch_no_expiry_date = '';
             new_item.actual_batch_qty = '';
-            new_item.qty = item.qty || 1;
+
+            if (this.is_return) {
+              new_item.qty = (item.qty || 1) * -1;
+            } else {
+              new_item.qty = item.qty || 1;
+            }
             this.items.unshift(new_item);
           }
         }
@@ -707,12 +732,14 @@ export default {
       this.invoice_doc = '';
       this.return_doc = '';
       this.discount_amount = 0;
+      this.is_return = false;
       evntBus.$emit('set_customer_readonly', false);
     },
     new_invoice(data = {}) {
       evntBus.$emit('set_customer_readonly', false);
       this.expanded = [];
       this.return_doc = '';
+      this.is_return = false;
       const doc = this.get_invoice_doc();
       if (doc.name) {
         this.update_invoice(doc);
@@ -728,7 +755,7 @@ export default {
         this.discount_amount = 0;
       } else {
         if (data.is_return) {
-          evntBus.$emit('set_customer_readonly', true);
+          this.is_return = true;
         }
         this.invoice_doc = data;
         this.items = data.items;
@@ -928,35 +955,35 @@ export default {
             value = false;
             return value;
           }
-          if (this.subtotal * -1 > this.return_doc.total) {
-            evntBus.$emit('show_mesage', {
-              text: `مجموع فاتورة الاعادة لايجب ان يكون اكبر من ${this.return_doc.total}`,
-              color: 'error',
-            });
-            value = false;
-            return value;
-          }
-          this.items.forEach((item) => {
-            const return_item = this.return_doc.items.find(
-              (element) => element.item_code == item.item_code
-            );
+          // if (this.subtotal * -1 > this.return_doc.total) {
+          //   evntBus.$emit('show_mesage', {
+          //     text: `مجموع فاتورة الاعادة لايجب ان يكون اكبر من ${this.return_doc.total}`,
+          //     color: 'error',
+          //   });
+          //   value = false;
+          //   return value;
+          // }
+          // this.items.forEach((item) => {
+          //   const return_item = this.return_doc.items.find(
+          //     (element) => element.item_code == item.item_code
+          //   );
 
-            if (!return_item) {
-              evntBus.$emit('show_mesage', {
-                text: `المادة ${item.item_name} لا يمكن اعادتها لانها غير موجودة في الفاتورة ${this.return_doc.name}`,
-                color: 'error',
-              });
-              value = false;
-              return value;
-            } else if (item.qty * -1 > return_item.qty || item.qty >= 0) {
-              evntBus.$emit('show_mesage', {
-                text: `كمية المادة ${item.item_name} لايمكن ان تكون اكبر من ${return_item.qty}`,
-                color: 'error',
-              });
-              value = false;
-              return value;
-            }
-          });
+          //   if (!return_item) {
+          //     evntBus.$emit('show_mesage', {
+          //       text: `المادة ${item.item_name} لا يمكن اعادتها لانها غير موجودة في الفاتورة ${this.return_doc.name}`,
+          //       color: 'error',
+          //     });
+          //     value = false;
+          //     return value;
+          //   } else if (item.qty * -1 > return_item.qty || item.qty >= 0) {
+          //     evntBus.$emit('show_mesage', {
+          //       text: `كمية المادة ${item.item_name} لايمكن ان تكون اكبر من ${return_item.qty}`,
+          //       color: 'error',
+          //     });
+          //     value = false;
+          //     return value;
+          //   }
+          // });
         }
       });
       return value;
@@ -977,7 +1004,12 @@ export default {
       });
     },
     open_returns() {
-      evntBus.$emit('open_returns', this.pos_profile.company);
+      // evntBus.$emit('open_returns', this.pos_profile.company);
+      this.is_return = true;
+      this.new_invoice();
+      this.invoice_doc = {};
+      this.invoice_doc.is_return = 1;
+      this.is_return = true;
     },
     search_price() {
       evntBus.$emit('search_price');
