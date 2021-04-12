@@ -52,6 +52,7 @@
               outlined
               color="indigo"
               :label="payment.mode_of_payment"
+              :autofocus="payment.type == 'Cash'"
               background-color="white"
               hide-details
               v-model="payment.amount"
