@@ -508,7 +508,7 @@
                 block
                 class="pa-0"
                 large
-                color="warning"
+                color="teal"
                 @click="search_price"
                 dark
               >
@@ -607,7 +607,7 @@ export default {
       return flt(sum).toFixed(2);
     },
     get_return_color() {
-      return this.is_return ? 'error' : 'info';
+      return this.is_return ? 'error' : 'deep-purple accent-4';
     },
   },
   methods: {

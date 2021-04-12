@@ -120,11 +120,15 @@
           </v-btn-toggle>
         </v-col>
         <v-col cols="4" class="mt-1">
-          <v-chip class="ma-2" color="primary" outlined>
+          <v-chip class="ma-2" color="teal darken-1" outlined>
             {{ invoice_type }}
           </v-chip>
         </v-col>
-        <v-col cols="4" class="mt-1"> </v-col>
+        <v-col cols="4" class="mt-1">
+          <v-chip class="ma-2" color="deep-purple accent-4" outlined>
+            {{ time }}
+          </v-chip>
+        </v-col>
       </v-row>
     </v-card>
   </div>
@@ -147,6 +151,8 @@ export default {
     loading: false,
     items_group: ['ALL'],
     items: [],
+    time: null,
+    interval: null,
     search: '',
     invoice_type: 'فاتورة جديدة',
     first_search: '',
@@ -342,6 +348,30 @@ export default {
         this.$refs.barcode.focus();
       }
     },
+    get_time() {
+      var date = new Date();
+      var h = date.getHours(); // 0 - 23
+      var m = date.getMinutes(); // 0 - 59
+      var s = date.getSeconds(); // 0 - 59
+      var session = 'AM';
+
+      if (h == 0) {
+        h = 12;
+      }
+
+      if (h > 12) {
+        h = h - 12;
+        session = 'PM';
+      }
+
+      h = h < 10 ? '0' + h : h;
+      m = m < 10 ? '0' + m : m;
+      s = s < 10 ? '0' + s : s;
+
+      var time = h + ':' + m + ':' + s + ' ' + session;
+      setTimeout(this.get_time, 1000);
+      return time;
+    },
   },
 
   computed: {
@@ -407,6 +437,11 @@ export default {
       this.invoice_type = data;
     });
     document.addEventListener('keydown', this.shortFocusBarcode.bind(this));
+    this.interval = setInterval(() => {
+      // Concise way to format time according to system locale.
+      // In my case this returns "3:48:00 am"
+      this.time = this.get_time();
+    }, 1000);
   },
   destroyed() {
     document.removeEventListener('keydown', this.shortFocusBarcode);
