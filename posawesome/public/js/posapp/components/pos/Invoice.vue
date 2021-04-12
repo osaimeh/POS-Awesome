@@ -1389,6 +1389,21 @@ export default {
         this.update_item_detail(data_value[0]);
       }
     },
+    items() {
+      let type = 'فاتورة جديدة';
+      if (this.invoice_doc && this.invoice_doc.name) {
+        if (this.is_return) {
+          type = 'فاتورة اعادة';
+        } else {
+          type = 'فاتورة معلقة';
+        }
+      } else if (this.is_return) {
+        type = 'فاتورة اعادة';
+      } else {
+        type = 'فاتورة جديدة';
+      }
+      evntBus.$emit('set_invoice_type', type);
+    },
   },
 };
 </script>

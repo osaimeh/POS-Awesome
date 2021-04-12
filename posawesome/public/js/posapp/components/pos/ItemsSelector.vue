@@ -107,7 +107,7 @@
             v-model="item_group"
           ></v-select>
         </v-col>
-        <v-col cols="8" class="mt-1">
+        <v-col cols="4" class="mt-1">
           <v-btn-toggle
             v-model="items_view"
             color="primary accent-3"
@@ -120,16 +120,11 @@
           </v-btn-toggle>
         </v-col>
         <v-col cols="4" class="mt-1">
-          <!-- <v-btn-toggle
-            v-model="favourites_view"
-            color="success accent-3"
-            group
-            dense
-            rounded
-          >
-            <v-btn value="True">Favourites</v-btn>
-          </v-btn-toggle> -->
+          <v-chip class="ma-2" color="primary" outlined>
+            {{ invoice_type }}
+          </v-chip>
         </v-col>
+        <v-col cols="4" class="mt-1"> </v-col>
       </v-row>
     </v-card>
   </div>
@@ -153,6 +148,7 @@ export default {
     items_group: ['ALL'],
     items: [],
     search: '',
+    invoice_type: 'فاتورة جديدة',
     first_search: '',
     itemsPerPage: 1000,
     items_headers: [
@@ -406,6 +402,9 @@ export default {
     });
     evntBus.$on('update_cur_items_details', () => {
       this.update_cur_items_details();
+    });
+    evntBus.$on('set_invoice_type', (data) => {
+      this.invoice_type = data;
     });
     document.addEventListener('keydown', this.shortFocusBarcode.bind(this));
   },
