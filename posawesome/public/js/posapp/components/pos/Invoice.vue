@@ -564,7 +564,7 @@ export default {
           value: 'item_name',
         },
         { text: 'الكمية', value: 'qty', align: 'center' },
-        { text: 'الواحدة', value: 'uom', align: 'center' },
+        { text: 'الباركود', value: 'barcode', align: 'start' },
         { text: 'السعر', value: 'rate', align: 'center' },
         { text: 'المبلغ', value: 'amount', align: 'center' },
         { text: 'إجراءات', value: 'actions', align: 'center', sortable: false },

@@ -160,7 +160,7 @@ export default {
       { text: 'السعر', value: 'rate', align: 'start' },
       { text: 'العملة', value: 'currency', align: 'start' },
       { text: 'الكمية المتوفرة', value: 'actual_qty', align: 'start' },
-      { text: 'الباركود', value: 'barcode', align: 'start' },
+      { text: 'الواحدة', value: 'stock_uom', align: 'start' },
     ],
   }),
 
