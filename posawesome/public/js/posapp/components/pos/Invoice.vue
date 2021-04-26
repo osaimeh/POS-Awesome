@@ -350,11 +350,6 @@
                 <v-col cols="12">
                   <div>
                     <p class="pa-0 ma-0">مجموع الكمية</p>
-                    <div style="display: inline">
-                      <span class="text-subtitle-2">
-                        {{ pos_profile.currency }}
-                      </span>
-                    </div>
                     <span>{{ formtCurrency(total_qty) }}</span>
                   </div>
                 </v-col>
