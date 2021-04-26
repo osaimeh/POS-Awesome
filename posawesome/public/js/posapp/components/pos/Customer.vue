@@ -124,6 +124,12 @@ export default {
         this.$refs.customer.focus();
       }
     },
+    shortNewCustomer(e) {
+      if (e.key === 'F5') {
+        e.preventDefault();
+        evntBus.$emit('open_new_customer');
+      }
+    },
   },
 
   computed: {},
@@ -145,10 +151,12 @@ export default {
       });
     });
     document.addEventListener('keydown', this.shortSelecCustomer.bind(this));
+    document.addEventListener('keydown', this.shortNewCustomer.bind(this));
   },
 
   destroyed() {
     document.removeEventListener('keydown', this.shortSelecCustomer);
+    document.addEventListener('keydown', this.shortNewCustomer.bind(this));
   },
 
   watch: {

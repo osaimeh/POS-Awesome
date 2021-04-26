@@ -404,13 +404,13 @@ export default {
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
     shortPay(e) {
-      if (e.key === 'F8') {
+      if (e.key === 'F9') {
         e.preventDefault();
         this.submit();
       }
     },
     shortPayWithoutPrint(e) {
-      if (e.key === 'F7') {
+      if (e.key === 'F8') {
         e.preventDefault();
         this.submit_without_print();
       }

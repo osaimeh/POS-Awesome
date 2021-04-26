@@ -1271,7 +1271,7 @@ export default {
       return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     },
     shortOpenPayment(e) {
-      if (e.key === 'F6') {
+      if (e.key === 'F7') {
         e.preventDefault();
         this.show_payment();
       }
@@ -1307,7 +1307,7 @@ export default {
       }
     },
     shortSelectDiscountPercent(e) {
-      if (e.key === 'F5') {
+      if (e.key === 'F6') {
         e.preventDefault();
         this.$refs.discount_percentage.focus();
       }
