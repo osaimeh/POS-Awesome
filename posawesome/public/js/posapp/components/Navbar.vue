@@ -1,10 +1,6 @@
 <template>
   <nav>
     <v-app-bar app height="40" class="elevation-2">
-      <v-app-bar-nav-icon
-        @click.stop="mini = !mini"
-        class="grey--text"
-      ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase indigo--text">
         <span>Avvio</span>
         <span class="font-weight-light">POS</span>
@@ -84,42 +80,7 @@
         <span right>الخروج</span>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant.sync="mini"
-      app
-      right
-      class="indigo margen-top"
-    >
-      <v-list dark>
-        <v-list-item class="px-2">
-          <v-list-item-avatar>
-            <v-img :src="company_img"></v-img>
-          </v-list-item-avatar>
 
-          <v-list-item-title>{{ company }}</v-list-item-title>
-
-          <v-btn icon @click.stop="mini = !mini">
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-        </v-list-item>
-        <!-- <MyPopup/> -->
-        <v-list-item-group v-model="item" color="white">
-          <v-list-item
-            v-for="item in items"
-            :key="item.text"
-            @click="changePage(item.text)"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
     <v-snackbar v-model="snack" :timeout="5000" :color="snackColor" top right>
       {{ snackText }}
       <!-- <template v-slot:action="{ attrs }"> -->
@@ -136,8 +97,6 @@ export default {
   // components: {MyPopup},
   data() {
     return {
-      drawer: true,
-      mini: true,
       item: 0,
       items: [{ text: 'POS', icon: 'mdi-point-of-sale' }],
       page: '',
