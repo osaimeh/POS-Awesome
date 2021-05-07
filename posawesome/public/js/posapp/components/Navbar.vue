@@ -11,7 +11,10 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
+      <div class="text-center" v-if="prev_invoice">
+        <span class="pink--text">{{ prev_invoice }}</span>
+      </div>
+      <v-spacer></v-spacer>
       <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -149,6 +152,7 @@ export default {
       company: 'POS Awesome',
       company_img: '/assets/erpnext/images/erp-icon.svg',
       pos_profile: '',
+      prev_invoice: '',
     };
   },
   methods: {
@@ -200,6 +204,9 @@ export default {
       });
       evntBus.$on('register_pos_profile', (data) => {
         this.pos_profile = data.pos_profile;
+      });
+      evntBus.$on('set_prev_invoice', (data) => {
+        this.prev_invoice = data;
       });
     });
   },

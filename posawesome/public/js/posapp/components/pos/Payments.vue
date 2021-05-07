@@ -339,6 +339,7 @@ export default {
               text: `Invoice ${r.message.name} is Submited`,
               color: 'success',
             });
+            evntBus.$emit('set_prev_invoice', vm.invoice_doc.name);
             frappe.utils.play_sound('submit');
           } else {
             vm.without_print = false;
