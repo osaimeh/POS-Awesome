@@ -1406,11 +1406,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .border_line_bottom {
   border-bottom: 1px solid lightgray;
 }
 .disable-events {
   pointer-events: none;
+}
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > td:not(.v-data-table__mobile-row) {
+  border-bottom: 0.5px solid rgb(122, 125, 129) !important;
 }
 </style>
