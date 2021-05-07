@@ -14,6 +14,7 @@
               <v-col cols="12">
                 <v-text-field
                   dense
+                  autofocus
                   color="indigo"
                   label="الإسم"
                   background-color="white"
