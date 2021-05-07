@@ -1350,6 +1350,9 @@ export default {
       this.new_invoice(data.invoice_doc);
       this.return_doc = data.return_doc;
     });
+    evntBus.$on('close_item_info', () => {
+      this.expanded = [];
+    });
     document.addEventListener('keydown', this.shortOpenPayment.bind(this));
     document.addEventListener('keydown', this.shortDeleteFirstItem.bind(this));
     document.addEventListener('keydown', this.shortFocusQTY.bind(this));

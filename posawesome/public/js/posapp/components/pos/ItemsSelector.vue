@@ -346,6 +346,7 @@ export default {
       if (e.key === 'F3') {
         e.preventDefault();
         this.$refs.barcode.focus();
+        evntBus.$emit('close_item_info');
       }
     },
     get_time() {
